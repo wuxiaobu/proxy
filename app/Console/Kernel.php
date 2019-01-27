@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\CrawlerRun::class,
+        Commands\CrawlerClear::class,
     ];
 
     /**
@@ -24,8 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('crawler:run Kuaidaili')
+                ->everyMinute()
+                ->withoutOverlapping();
+        $schedule->command('crawler:clear')
+                ->cron('*/3 * * * *')
+                ->withoutOverlapping();
     }
 
     /**
