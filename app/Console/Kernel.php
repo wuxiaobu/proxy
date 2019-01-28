@@ -25,11 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('crawler:run Kuaidaili')
-                ->everyMinute()
+        $schedule->command('crawler:run')
+                ->everyFiveMinutes()
                 ->withoutOverlapping();
         $schedule->command('crawler:clear')
-                ->cron('*/3 * * * *')
+                ->cron('*/1 * * * *')
                 ->withoutOverlapping();
     }
 

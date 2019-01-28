@@ -36,21 +36,22 @@ class crawlerRun extends Command
      *
      * @return mixed
      */
-    public function handle(){   
-        if ($drivers = $this->argument('drivers')) {
-           $drivers = explode('|', $drivers);
-        }else{
-           $drivers_path = app_path('Spiders/Drivers');
-           $drivers = array_values(array_diff(scandir($drivers_path), array('..', '.')));
-           array_walk($drivers,function (&$driver){
-               $driver = substr($driver,0,strpos($driver,'.'));
-           });
-        }
-        $spider = Spider::getInstance();
-        foreach ($drivers as $driver) {
-           $spider->setDriver($driver);
-           $spider->handle();
-        }
-   }
+  public function handle(){
+    \Log::info('#########');
+    if ($drivers = $this->argument('drivers')) {
+      $drivers = explode('|', $drivers);
+    }else{
+      $drivers_path = base_path('package/Proxy/Drivers');
+      $drivers = array_values(array_diff(scandir($drivers_path), array('..', '.')));
+      array_walk($drivers,function (&$driver){
+        $driver = substr($driver,0,strpos($driver,'.'));
+      });
+    }
+    $spider = Spider::getInstance();
+    foreach ($drivers as $driver) {
+      $spider->setDriver($driver);
+      $spider->handle();
+    }
+  }
     
 }

@@ -53,8 +53,7 @@ class CrawlerClear extends Command
                 $proxy->succeed_times = ++$proxy->succeed_times;
                 $proxy->last_checked_at = Carbon::now();
             } else {
-                $proxy->fail_times = ++$proxy->fail_times;
-                $proxy->last_checked_at = Carbon::now();
+                $proxy->delete();
             }
             $proxy->update();
         });

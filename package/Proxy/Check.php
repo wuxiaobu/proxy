@@ -46,7 +46,8 @@ class Check
         Log::info("代理检测成功[{$proxy}]：$speed ms[{$response->getStatusCode()}]");
         return $speed;
       } else {
-        throw new \Exception('检测结果不包含关键字');
+        Log::error('检测结果不包含关键字');
+        return false;
       }
     } catch (\Exception $exception) {
       Log::error("代理测试失败[{$proxy}]：" . $exception->getMessage());
